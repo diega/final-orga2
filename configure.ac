@@ -6,4 +6,7 @@ AC_PROG_CC
 AC_PROG_NASM
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile src/Makefile])
+PKG_CHECK_MODULES(OPENCV, \
+  opencv
+  )
 AC_OUTPUT
