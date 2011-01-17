@@ -1,13 +1,14 @@
 #include "highgui.h"
 #include <stdio.h>
 
-void applyMaskFilter(uchar* data, int width, int height, int channels, int step);
+void applyMaskFilter(uchar* data, int width, int height, int channels, int step, uchar mask);
 
 int main(int argc, char *argv[])
 {
   IplImage* img = 0; 
   int height,width,step,channels;
   uchar *data;
+  uchar mask = 0x0f;
 
   if(argc<2){
     printf("Usage: main <image-file-name>\n\7");
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
   cvMoveWindow("mainWin", 100, 100);
 
   // invert the image
-  applyMaskFilter(data, width, height, channels, step);
+  applyMaskFilter(data, width, height, channels, step, mask);
 
   // show the image
   cvShowImage("mainWin", img );
@@ -49,15 +50,14 @@ int main(int argc, char *argv[])
 }
 
 
-void applyMaskFilter(uchar* data, int width, int height, int channels, int step) {
+void applyMaskFilter(uchar* data, int width, int height, int channels, int step, uchar mask) {
   int i, j, k, index;
   for( i=0; i<height; i++ ) 
     for( j=0; j<width; j++ ) 
       for( k=0; k<channels; k++ ) {
         index = i*step+j*channels+k;
-        if ( index % 1000  == 0 )
-          printf("%d * %d + %d * %d + %d = %d\n", i, step, j, channels, k, index);
-        data[index]=255 - data[index];
+        if (k == 1)
+          data[index] = 0;
       }
 }
 
