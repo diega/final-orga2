@@ -1,6 +1,6 @@
-bin_PROGRAMS = mask restar
+bin_PROGRAMS = restar mask
 
-mask_SOURCES = mask.c
+mask_SOURCES = mask.c applyMask.nasm
 mask_CPPFLAGS = $(OPENCV_CFLAGS)
 mask_LDADD = $(OPENCV_LIBS)
 
@@ -9,4 +9,4 @@ restar_CPPFLAGS = -m32
 restar_LDFLAGS = -m32
 
 .nasm.o:
-	@NASM@ -felf -o $@ $<
+	@NASM@ @NAFLAGS@ -o $@ $<

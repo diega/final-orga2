@@ -1,17 +1,16 @@
 #include "highgui.h"
 #include <stdio.h>
 
-void applyMaskFilter(uchar* data, int width, int height, int channels, int step, uchar mask);
+extern void applyMaskFilter(uchar* data, int width, int height, int channels, int step, uchar mask);
 
 int main(int argc, char *argv[])
 {
   IplImage* img = 0; 
-  int height,width,step,channels;
+  int height,width,step,channels,mask;
   uchar *data;
-  uchar mask = 0x0f;
 
-  if(argc<2){
-    printf("Usage: main <image-file-name>\n\7");
+  if(argc<3){
+    printf("Usage: %s <image-file-name> <mask>\n\7", argv[0]);
     exit(0);
   }
 
@@ -21,6 +20,7 @@ int main(int argc, char *argv[])
     printf("Could not load image file: %s\n",argv[1]);
     exit(0);
   }
+  mask = atoi(argv[2]);
 
   // get the image data
   height    = img->height;
@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
   channels  = img->nChannels;
   data      = (uchar *)img->imageData;
   printf("Processing a %dx%d image with %d channels\n",height,width,channels); 
-  printf("widthStep %d", step);
 
   // create a window
   cvNamedWindow("mainWin", CV_WINDOW_AUTOSIZE); 
@@ -49,7 +48,7 @@ int main(int argc, char *argv[])
   return 0;
 }
 
-
+/*
 void applyMaskFilter(uchar* data, int width, int height, int channels, int step, uchar mask) {
   int i, j, k, index;
   for( i=0; i<height; i++ ) 
@@ -60,4 +59,5 @@ void applyMaskFilter(uchar* data, int width, int height, int channels, int step,
           data[index] = 0;
       }
 }
+*/
 
