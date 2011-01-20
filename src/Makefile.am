@@ -1,5 +1,4 @@
-bin_PROGRAMS = filter mask restar
-filter_SOURCES = filter.c
+bin_PROGRAMS = mask restar
 
 mask_SOURCES = mask.c
 mask_CPPFLAGS = $(OPENCV_CFLAGS)
