@@ -30,9 +30,9 @@ applyMaskFilter:
     row:
         mov ebx, [step]
         column:
-            mov edi, 255
-            sub edi, [esi]
-            mov [esi], edi
+            mov al, 255
+            sub al, [esi]
+            mov [esi], al
             inc esi
             dec ebx
         jnz column
